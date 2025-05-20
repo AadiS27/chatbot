@@ -1,0 +1,29 @@
+Basic Sample Queries and Chatbot Responses for PDF Documents
+Here are some basic sample queries that users might ask about uploaded PDF documents, along with potential responses from your chatbot:
+
+Basic Document Questions
+Query 1: "What is this document about?" Response: "This document appears to be a company policy on remote work arrangements. It outlines eligibility requirements, expectations for remote employees, and communication protocols."
+
+Query 2: "Summarize this document for me" Response: "This is a 5-page user manual for a smartphone. It covers basic setup, connecting to Wi-Fi, installing apps, and troubleshooting common issues. The manual includes several illustrations showing button locations and screen navigation."
+
+Finding Information
+Query 3: "When is the project deadline?" Response: "According to the document, the project deadline is March 15, 2025. This is mentioned on page 2 in the 'Timeline' section."
+
+Query 4: "What are the main points of the executive summary?" Response: "The executive summary highlights three main points: 1) Fourth quarter sales increased by 12% compared to last year, 2) The new product line exceeded revenue expectations by $1.2M, and 3) Expansion into the European market is recommended for the next fiscal year."
+
+Simple Explanations
+Query 5: "Explain the refund policy" Response: "The refund policy states that customers can return products within 30 days of purchase with the original receipt for a full refund. Items must be unused and in original packaging. Store credit is offered for returns without receipts."
+
+Query 6: "What does Figure 3 show?" Response: "Figure 3 on page 7 shows a bar chart comparing energy consumption across different departments. The Marketing department has the highest usage at 32%, followed by Operations at 28%, while HR shows the lowest at 8%."
+
+Factual Questions
+Query 7: "How much funding was received?" Response: "According to the grant report, the organization received $75,000 in funding for the community outreach program."
+
+Query 8: "Who is the primary contact person?" Response: "The primary contact person listed in the document is Sarah Johnson, Project Manager. Her email is sjohnson@example.com and phone number is (555) 123-4567."
+
+Action Items
+Query 9: "What do I need to do next?" Response: "Based on the instructions in the document, your next steps are: 1) Complete the application form on page 4, 2) Gather the supporting documents listed in Appendix A, and 3) Submit everything by email to applications@example.com before the May 31st deadline."
+
+Query 10: "How do I install this software?" Response: "To install the software, the document provides these steps: 1) Download the installer from the website, 2) Run the .exe file as administrator, 3) Follow the on-screen prompts selecting 'Standard Installation', 4) Restart your computer when prompted. The process should take approximately 10-15 minutes."
+
+These basic examples show how your chatbot can respond to straightforward questions about document content in a helpful, concise manner.
