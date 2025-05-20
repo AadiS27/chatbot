@@ -1,9 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { login, signup } from "./action"
 import LoginError from "./error"
 import { EyeIcon, EyeOffIcon, MailIcon, LockIcon, UserIcon } from 'lucide-react'
+import { useSearchParams } from "next/navigation"
+
+
+function LoginErrorWithParams() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
+  
+  return error ? <LoginError /> : null
+}
+
+
 
 export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -16,18 +27,18 @@ export default function LoginPage() {
     setPasswordsMatch(e.target.value === password.value)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, action: typeof login | typeof signup) => {
-    if (isSignUp) {
-      const password = document.getElementById("password") as HTMLInputElement
-      const confirmPassword = document.getElementById("confirmPassword") as HTMLInputElement
-      
-      if (password.value !== confirmPassword.value) {
-        e.preventDefault()
-        setPasswordsMatch(false)
-        return
-      }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  if (isSignUp) {
+    const password = document.getElementById("password") as HTMLInputElement
+    const confirmPassword = document.getElementById("confirmPassword") as HTMLInputElement
+    
+    if (password.value !== confirmPassword.value) {
+      e.preventDefault()
+      setPasswordsMatch(false)
+      return
     }
   }
+}
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8">
@@ -44,10 +55,14 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-100">
-          <LoginError />
+         <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-100">
+          {/* Wrap only the error component with Suspense */}
+          <Suspense fallback={<div className="h-6"></div>}>
+            <LoginErrorWithParams />
+          </Suspense>
+          
 
-          <form className="space-y-6" onSubmit={(e) => handleSubmit(e, isSignUp ? signup : login)}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email

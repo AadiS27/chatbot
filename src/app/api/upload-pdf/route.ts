@@ -50,8 +50,7 @@ export async function POST(request: Request) {
       // For better PDF handling, send the file to a PDF extraction service
       try {
         // Convert bytes to Base64 for easier handling in APIs
-        const base64Data = Buffer.from(bytes).toString('base64');
-        
+       
         // Option 1: Process text extraction directly
         let textContent = '';
         

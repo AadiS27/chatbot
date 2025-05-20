@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect,useCallback } from "react"
 import { Bot, User, Send, Loader2, AlertCircle, RefreshCw, Upload, X, FileText } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -210,39 +210,48 @@ useEffect(() => {
   localStorage.setItem('chatUserId', storedUserId);
   setUserId(storedUserId);
 }, []);
-const fetchChatHistory = async () => {
-    setLoadingHistory(true);
-    setError(null);
+const fetchChatHistory = useCallback(async () => {
+  setLoadingHistory(true);
+  setError(null);
 
-    try {
-      const response = await fetch(`/api?userId=${userId}`);
-      const data = await response.json();
+  try {
+    const response = await fetch(`/api?userId=${userId}`);
+    const data = await response.json();
 
-      if (data.error) {
-        setError(data.error);
-      } else if (data.messages && data.messages.length > 0) {
-        // Format messages from Supabase to match our app's format
-        const formattedMessages = data.messages.map((msg: any) => ({
-          id: msg.id,
-          role: msg.role,
-          content: msg.content,
-          created_at: msg.created_at
-        }));
-
-        setMessages(formattedMessages);
+    if (data.error) {
+      setError(data.error);
+    } else if (data.messages && data.messages.length > 0) {
+      // Format messages from Supabase to match our app's format
+      interface ApiMessage {
+        id: string;
+        role: "user" | "model";
+        content: string;
+        created_at: string;
       }
-    } catch (err) {
-      setError("Failed to load chat history");
-      console.error("Error loading chat history:", err);
-    } finally {
-      setLoadingHistory(false);
+      
+      const formattedMessages: Message[] = (data.messages as ApiMessage[]).map((msg: ApiMessage) => ({
+        id: msg.id,
+        role: msg.role,
+        content: msg.content,
+        created_at: msg.created_at
+      }));
+
+      setMessages(formattedMessages);
     }
-  };
-  useEffect(() => {
-    if (userId) {
-      fetchChatHistory();
-    }
-  }, [userId]);
+  } catch (err) {
+    setError("Failed to load chat history");
+    console.error("Error loading chat history:", err);
+  } finally {
+    setLoadingHistory(false);
+  }
+}, [userId]); // Add userId as a dependency
+
+// Then update your useEffect to include fetchChatHistory in the dependency array
+useEffect(() => {
+  if (userId) {
+    fetchChatHistory();
+  }
+}, [userId, fetchChatHistory]); // Add fetchChatHistory to the dependency array
 
   // Add this function to your ChatbotPage component
 const clearChatHistory = async () => {
@@ -399,7 +408,7 @@ const renderFileUploadSection = () => (
               <Bot size={32} className="text-purple-600" />
             </div>
             <p className="text-gray-500 max-w-md">
-              Hi there! I'm your Gemini AI assistant. Ask me anything to start our conversation.
+              Hi there! Im your Gemini AI assistant. Ask me anything to start our conversation.
             </p>
           </div>
         ) : (
